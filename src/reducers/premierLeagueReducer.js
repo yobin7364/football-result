@@ -10,7 +10,7 @@ const initialState = {
   isModalOpen: false,
 };
 
-export default function (state = initialState, action) {
+export default function premierLeague(state = initialState, action) {
   switch (action.type) {
     case LOADING_ALL_PREMIER_LEAGUE:
       return {

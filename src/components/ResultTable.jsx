@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import testImage from "../images/realM.png"
+import footBallLogo from "../images/footballLogo.png"
 import { FootballModal } from './FootballModal'
 import { useSelector, useDispatch } from "react-redux";
+import { getAllPremierLeague } from "../actions/premierLeageAction";
 
 export const ResultTable = () => {
 
@@ -16,6 +17,12 @@ export const ResultTable = () => {
         dispatch({ type: "IS_MODAL_OPEN", payload: true })
     }
 
+    //fetch premier league data
+    useEffect(() => {
+        dispatch(getAllPremierLeague())
+
+    }, [dispatch])
+
     return (
         <div className="center-horizontally">
 
@@ -26,182 +33,173 @@ export const ResultTable = () => {
             {/* modal  END*/}
 
             {/* table  START*/}
-
             <table>
-                <div className="container">
+                <tbody>
                     {/* Table Header START*/}
-                    <tbody>
-                        <tr>
-                            <th>Position</th>
-                            <th className="header-club">
-                                <div className="header-inner-div">Club</div>
-                            </th>
-                            <th>Played</th>
-                            <th>Won</th>
-                            <th>Drawn</th>
-                            <th>Lost</th>
-                            <th>
-                                <div className="dotted-underline">
-                                    GF
+
+                    <tr>
+                        <th>Position</th>
+                        <th className="header-club">
+                            <div className="header-inner-div">Club</div>
+                        </th>
+                        <th>Played</th>
+                        <th>Won</th>
+                        <th>Drawn</th>
+                        <th>Lost</th>
+                        <th>
+                            <div className="dotted-underline">
+                                GF
                         </div>
-                            </th>
-                            <th>
-                                <div className="dotted-underline">
-                                    GA
+                        </th>
+                        <th>
+                            <div className="dotted-underline">
+                                GA
                         </div>
-                            </th>
-                            <th>
-                                <div className="dotted-underline">
-                                    GD
+                        </th>
+                        <th>
+                            <div className="dotted-underline">
+                                GD
                         </div>
-                            </th>
-                            <th>Points</th>
-                            <th className="header-form">Form</th>
-                        </tr>
-                    </tbody>
+                        </th>
+                        <th>Points</th>
+                        <th className="header-form">Form</th>
+                    </tr>
                     {/* Table Header END*/}
 
                     {/* Table Row START*/}
-                    <tbody>
-                        <tr className="row-layout" onClick={() => onRowClick("Real Madrid")}>
-                            <td>1</td>
-                            <td>
-                                <div className="club-row">
-                                    <img
-                                        src={testImage}
-                                        alt="real-madrid"
-                                        className="club-logo"
-                                    >
+                    <tr className="row-layout" onClick={() => onRowClick("Real Madrid")}>
+                        <td>1</td>
+                        <td>
+                            <div className="club-row">
+                                <img
+                                    src={footBallLogo}
+                                    alt="real-madrid"
+                                    className="club-logo"
+                                >
 
-                                    </img>
+                                </img>
                             Real Madrid
                             </div>
-                            </td>
-                            <td>38</td>
-                            <td>20</td>
-                            <td>12</td>
-                            <td>0</td>
-                            <td>32</td>
-                            <td>12</td>
-                            <td>+12</td>
-                            <td>43</td>
-                            <td className="last-column">
-                                <div className="last-five-games">
-                                    <div className="game-status win">
+                        </td>
+                        <td>38</td>
+                        <td>20</td>
+                        <td>12</td>
+                        <td>0</td>
+                        <td>32</td>
+                        <td>12</td>
+                        <td>+12</td>
+                        <td>43</td>
+                        <td className="last-column">
+                            <div className="last-five-games">
+                                <div className="game-status win">
 
-                                    </div>
-                                    <div className="game-status win">
-
-                                    </div>
-                                    <div className="game-status loss">
-
-                                    </div>
-                                    <div className="game-status loss">
-
-                                    </div>
-                                    <div className="game-status draw">
-
-                                    </div>
                                 </div>
-                            </td>
-                        </tr>
-                    </tbody>
+                                <div className="game-status win">
 
-                    <tbody>
-                        <tr className="row-layout" onClick={() => onRowClick("Barcelona")}>
-                            <td>1</td>
-                            <td>
-                                <div className="club-row">
-                                    <img
-                                        src={testImage}
-                                        alt="real-madrid"
-                                        className="club-logo"
-                                    >
+                                </div>
+                                <div className="game-status loss">
 
-                                    </img>
+                                </div>
+                                <div className="game-status loss">
+
+                                </div>
+                                <div className="game-status draw">
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr className="row-layout" onClick={() => onRowClick("Barcelona")}>
+                        <td>1</td>
+                        <td>
+                            <div className="club-row">
+                                <img
+                                    src={footBallLogo}
+                                    alt="real-madrid"
+                                    className="club-logo"
+                                >
+
+                                </img>
                             Real Madrid
                             </div>
-                            </td>
-                            <td>38</td>
-                            <td>20</td>
-                            <td>12</td>
-                            <td>0</td>
-                            <td>32</td>
-                            <td>12</td>
-                            <td>+12</td>
-                            <td>43</td>
-                            <td className="last-column">
-                                <div className="last-five-games">
-                                    <div className="game-status win">
+                        </td>
+                        <td>38</td>
+                        <td>20</td>
+                        <td>12</td>
+                        <td>0</td>
+                        <td>32</td>
+                        <td>12</td>
+                        <td>+12</td>
+                        <td>43</td>
+                        <td className="last-column">
+                            <div className="last-five-games">
+                                <div className="game-status win">
 
-                                    </div>
-                                    <div className="game-status win">
-
-                                    </div>
-                                    <div className="game-status loss">
-
-                                    </div>
-                                    <div className="game-status loss">
-
-                                    </div>
-                                    <div className="game-status draw">
-
-                                    </div>
                                 </div>
-                            </td>
-                        </tr>
-                    </tbody>
+                                <div className="game-status win">
 
-                    <tbody>
-                        <tr className="row-layout" onClick={() => onRowClick("Liverpool")}>
+                                </div>
+                                <div className="game-status loss">
 
-                            <td>1</td>
-                            <td>
-                                <div className="club-row">
-                                    <img
-                                        src={testImage}
-                                        alt="real-madrid"
-                                        className="club-logo"
-                                    >
+                                </div>
+                                <div className="game-status loss">
 
-                                    </img>
+                                </div>
+                                <div className="game-status draw">
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr className="row-layout" onClick={() => onRowClick("Liverpool")}>
+
+                        <td>1</td>
+                        <td>
+                            <div className="club-row">
+                                <img
+                                    src={footBallLogo}
+                                    alt="real-madrid"
+                                    className="club-logo"
+                                >
+
+                                </img>
                             Real Madrid
                             </div>
-                            </td>
-                            <td>38</td>
-                            <td>20</td>
-                            <td>12</td>
-                            <td>0</td>
-                            <td>32</td>
-                            <td>12</td>
-                            <td>+12</td>
-                            <td>43</td>
-                            <td className="last-column">
+                        </td>
+                        <td>38</td>
+                        <td>20</td>
+                        <td>12</td>
+                        <td>0</td>
+                        <td>32</td>
+                        <td>12</td>
+                        <td>+12</td>
+                        <td>43</td>
+                        <td className="last-column">
 
-                                <div className="last-five-games">
-                                    <div className="game-status win">
+                            <div className="last-five-games">
+                                <div className="game-status win">
 
-                                    </div>
-                                    <div className="game-status win">
-
-                                    </div>
-                                    <div className="game-status loss">
-
-                                    </div>
-                                    <div className="game-status loss">
-
-                                    </div>
-                                    <div className="game-status draw">
-
-                                    </div>
                                 </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </div>
+                                <div className="game-status win">
+
+                                </div>
+                                <div className="game-status loss">
+
+                                </div>
+                                <div className="game-status loss">
+
+                                </div>
+                                <div className="game-status draw">
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
                 {/* Table Row END*/}
             </table>
-
             {/* Table END */}
         </div>
     )

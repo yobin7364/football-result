@@ -61,12 +61,11 @@ ul {
 
 .match-status {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 11%;
   font-size: 2rem;
+  align-items: center;
 
   .scores {
+    color: white;
     width: 6rem;
     height: 6rem;
     display: flex;

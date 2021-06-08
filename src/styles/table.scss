@@ -4,7 +4,8 @@
 }
 
 .center-horizontally {
-  display: grid;
+  display: flex;
+  justify-content: center;
   font-size: 2rem;
 }
 
@@ -56,6 +57,7 @@
 table {
   border-collapse: collapse;
   margin: 2rem;
+  width: 1630px;
 }
 
 td,
@@ -70,6 +72,7 @@ th {
 }
 
 .row-layout {
+  font-weight: 600;
   border-bottom: 1.5px solid #8080803d;
   height: 10rem;
   &:hover {
