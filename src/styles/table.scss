@@ -1,0 +1,102 @@
+.center-horizontally {
+  display: grid;
+  font-size: 2rem;
+}
+
+//logo image
+.club-logo {
+  height: 5rem;
+  width: 5rem;
+  margin: 0 2rem;
+}
+
+.last-five-games {
+  display: flex;
+  align-items: center;
+}
+
+//Form win, loss or draw
+.game-status {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+  color: white;
+  margin: 0.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.win {
+  background-color: #3bcf2f;
+  &::after {
+    content: "W";
+  }
+}
+
+.loss {
+  background-color: #d40020;
+  &::after {
+    content: "L";
+  }
+}
+
+.draw {
+  background-color: #76766f;
+  &::after {
+    content: "D";
+  }
+}
+
+table {
+  border-collapse: collapse;
+  margin: 2rem;
+}
+
+td,
+th {
+  //   border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+th {
+  background-color: #e7e7e7;
+}
+
+.row-layout {
+  border-bottom: 1.5px solid #8080803d;
+  height: 10rem;
+  &:hover {
+    cursor: pointer;
+    border-bottom: 1.5px solid #808080cf;
+  }
+}
+
+.header-form {
+  width: 10%;
+  border-right: 1.5px solid #8080803d;
+}
+
+.last-column {
+  border-right: 1.5px solid #8080803d;
+}
+
+.header-club {
+  width: 32%;
+  text-align: left;
+}
+
+.club-row {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.header-inner-div {
+  margin-left: 9rem;
+}
+
+.dotted-underline {
+  border-bottom: 0.2rem dotted;
+}
