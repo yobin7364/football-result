@@ -1,3 +1,8 @@
+.container {
+  max-width: 1630px;
+  margin: 0 auto;
+}
+
 .center-horizontally {
   display: grid;
   font-size: 2rem;
@@ -85,11 +90,15 @@ th {
 .header-club {
   width: 32%;
   text-align: left;
+
+  @media only screen and (max-width: $size-largest-small) {
+    width: 25%; // rem take this px size, here it is 8px and 1rem =  8px
+  }
 }
 
 .club-row {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
 }
 

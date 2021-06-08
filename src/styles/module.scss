@@ -1,0 +1,129 @@
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #edebe0;
+  margin: 15% auto; /* 15% from the top and centered */
+  // padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  margin-top: 10rem;
+
+  @media only screen and (max-width: $size-largest-small) {
+    margin-top: 5rem;
+  }
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  font-size: 4rem;
+  font-weight: bold;
+  &:hover,
+  :focus {
+    color: #e36a6a;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #004c74;
+  color: white;
+  padding: 2rem;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.match-report {
+  margin: 2rem;
+  &:not(:last-child) {
+    margin-bottom: 10rem;
+  }
+}
+
+.match-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 11%;
+  font-size: 2rem;
+
+  .scores {
+    width: 6rem;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    margin-left: 1rem;
+  }
+
+  .scores-won {
+    background-color: #3bcf2f;
+  }
+
+  .scores-loss {
+    background-color: #ff4f73;
+  }
+
+  .scores-draw {
+    background-color: #9d9b77;
+  }
+}
+
+.scores-lists {
+  display: flex;
+  flex-direction: column;
+  font-weight: 300;
+  margin: 2rem 0;
+}
+
+.scores-item {
+  display: flex;
+  justify-content: space-around;
+  color: white;
+}
+
+.alternate-won-colors {
+  background: #0fb569;
+  &:nth-child(odd) {
+    background: #008246;
+  }
+}
+
+.alternate-loss-colors {
+  background: #f4385f;
+  &:nth-child(odd) {
+    background: #d2153c;
+  }
+}
+
+.alternate-draw-colors {
+  background: #9d9b77;
+  &:nth-child(odd) {
+    background: #716e40;
+  }
+}
+
+.scores-title,
+.scores-number {
+  font-weight: 300;
+}

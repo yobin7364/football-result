@@ -1,11 +1,15 @@
 import { ResultTable } from "./components/ResultTable";
 import "./styles/main.scss";
+import store from "./store";
+import { Provider } from "react-redux";
 
 function App() {
   return (
-    <div>
-      <ResultTable />
-    </div>
+    <Provider store={store}>
+      <div>
+        <ResultTable />
+      </div>
+    </Provider>
   );
 }
 
