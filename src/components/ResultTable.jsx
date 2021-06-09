@@ -3,6 +3,7 @@ import footBallLogo from "../images/footballLogo.png"
 import { FootballModal } from './FootballModal'
 import { useSelector, useDispatch } from "react-redux";
 import { getAllPremierLeague } from "../actions/premierLeageAction";
+import Spinner from './Spinner';
 
 export const ResultTable = () => {
 
@@ -14,9 +15,9 @@ export const ResultTable = () => {
 
     const premierLeagueMatch = useSelector(state => state.premierLeague.premierLeagueMatch)
 
+    const loading = useSelector(state => state.premierLeague.loading)
+
     const [tableRowData, setTableRowData] = useState([])
-
-
 
 
     //pass data to Modal componenet and set open calue to "true"
@@ -55,6 +56,8 @@ export const ResultTable = () => {
 
     //fetch premier league data
     useEffect(() => {
+
+        //get premier league data when there is no data
         if (eachTeam.length === 0) {
             dispatch(getAllPremierLeague())
         }
@@ -65,7 +68,7 @@ export const ResultTable = () => {
 
             let rowDataArry = [];
 
-            //function to check club score status
+            //check each club score status
             const checkStatus = (eachMatch, teamInfo) => {
                 let scoreStatus = {
                     won: 0,
@@ -75,23 +78,35 @@ export const ResultTable = () => {
                     goalConceded: 0
                 }
 
-
+                //If the current iterating club is no "team1" then its score is on "first" element of an "ft" array ,
+                //else it will be on "second" element.
                 if (eachMatch.team1 === teamInfo.teamName) {
 
+                    //Add scored goals
                     scoreStatus.goalScored = scoreStatus.goalScored + eachMatch.score.ft[0];
 
+                    //Add conceded goals
                     scoreStatus.goalConceded = scoreStatus.goalConceded + eachMatch.score.ft[1];
 
                     if (eachMatch.score.ft[0] > eachMatch.score.ft[1]) {
+
+                        //Add won games
                         scoreStatus.won = scoreStatus.won + 1;
+
                     }
 
                     else if (eachMatch.score.ft[0] < eachMatch.score.ft[1]) {
+
+                        //Add lost games
                         scoreStatus.lost = scoreStatus.lost + 1;
+
                     }
 
                     else {
+
+                        //Add drawn games
                         scoreStatus.draw = scoreStatus.draw + 1;
+
                     }
 
                 }
@@ -116,14 +131,20 @@ export const ResultTable = () => {
 
                 }
 
+                //return final score from each game
                 return (scoreStatus)
             }
 
             eachTeam.forEach((teamInfo) => {
 
+                //Game staus from last five games for each club
+                // 1 = won
+                // -1 = lost
+                // 0 = drawn
+
                 let lastFiveGamesStatus = [];
 
-                //get last five matches status
+                //get latest five matches status
                 for (let i = teamInfo.matchDetails.length - 1, j = 0; j <= 4; i--) {
 
                     if (teamInfo.matchDetails[i].score) {
@@ -144,19 +165,17 @@ export const ResultTable = () => {
                     }
                 }
 
-                // console.log("lastFiveGamesStatus", lastFiveGamesStatus);
-
+                //Variables storing total game scores
                 let totalWon = 0,
                     totalLost = 0,
                     totalDraw = 0,
                     totalGoalScored = 0,
                     totalGoalConceded = 0;
 
+                //Caculate game scores from "matchDetails" arry 
                 teamInfo.matchDetails.forEach(eachMatch => {
 
                     if (eachMatch.score) {
-
-                        // console.log("second", teamInfo.teamName, checkStatus(eachMatch, teamInfo));
 
                         let calculatedEachScore = checkStatus(eachMatch, teamInfo);
 
@@ -187,16 +206,14 @@ export const ResultTable = () => {
 
             })
 
+            //Sort row data array based on "points" in descensing order
             rowDataArry.sort((a, b) => {
                 return b.points - a.points
             })
 
             setTableRowData(rowDataArry);
 
-
-
         }
-
 
 
         console.log("eachTeam", eachTeam)
@@ -255,17 +272,59 @@ export const ResultTable = () => {
                     {/* Table Row START*/}
 
                     {
+                        loading &&
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><Spinner /></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+
+                        </tr>
+                    }
+
+
+
+                    {
+
+                        !loading
+                        &&
                         tableRowData?.map((eachRow, index) => (
-                            <tr className="row-layout" onClick={() => onRowClick("Real Madrid")}>
+                            <tr key={index} className="row-layout"
+                                onClick={() =>
+                                    onRowClick({
+                                        clubName: eachRow.club,
+                                        clubWonGames: eachRow.won,
+                                        clubLostGames: eachRow.lost,
+                                        clubDrawnGames: eachRow.draw
+
+                                    })}
+
+
+
+                            >
+
                                 <td>{index + 1}</td>
                                 <td>
                                     <div className="club-row">
-                                        <img
-                                            src={footBallLogo}
-                                            alt={eachRow.club}
-                                            className="club-logo"
-                                        />
-                                        {eachRow.club}
+                                        <div>
+                                            <img
+                                                src={footBallLogo}
+                                                alt={eachRow.club}
+                                                className="club-logo"
+                                            />
+                                        </div>
+
+                                        <div className="row-club-title">
+                                            {eachRow.club}
+                                        </div>
+
                                     </div>
                                 </td>
                                 <td>{eachRow.played}</td>
@@ -278,8 +337,9 @@ export const ResultTable = () => {
                                 <td>{eachRow.points}</td>
                                 <td className="last-column">
                                     <div className="last-five-games">
+                                        {/* Add classes based on form status */}
                                         {
-                                            eachRow.form.map(eachForm => {
+                                            eachRow.form.map((eachForm, indx) => {
 
                                                 let classNameDerived = "";
 
@@ -296,27 +356,12 @@ export const ResultTable = () => {
                                                 }
 
                                                 return (
-                                                    <div className={"game-status " + classNameDerived}>
+                                                    <div key={indx} className={"game-status " + classNameDerived}>
                                                     </div>
                                                 )
                                             })
                                         }
 
-                                        {/* <div className="game-status win">
-
-                                </div>
-                                <div className="game-status win">
-
-                                </div>
-                                <div className="game-status loss">
-
-                                </div>
-                                <div className="game-status loss">
-
-                                </div>
-                                <div className="game-status draw">
-
-                                </div> */}
                                     </div>
                                 </td>
                             </tr>
@@ -325,139 +370,11 @@ export const ResultTable = () => {
                     }
 
 
-                    {/* <tr className="row-layout" onClick={() => onRowClick("Real Madrid")}>
-                        <td>1</td>
-                        <td>
-                            <div className="club-row">
-                                <img
-                                    src={footBallLogo}
-                                    alt="real-madrid"
-                                    className="club-logo"
-                                >
-
-                                </img>
-                            Real Madrid
-                            </div>
-                        </td>
-                        <td>38</td>
-                        <td>20</td>
-                        <td>12</td>
-                        <td>0</td>
-                        <td>32</td>
-                        <td>12</td>
-                        <td>+12</td>
-                        <td>43</td>
-                        <td className="last-column">
-                            <div className="last-five-games">
-                                <div className="game-status win">
-
-                                </div>
-                                <div className="game-status win">
-
-                                </div>
-                                <div className="game-status loss">
-
-                                </div>
-                                <div className="game-status loss">
-
-                                </div>
-                                <div className="game-status draw">
-
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr className="row-layout" onClick={() => onRowClick("Barcelona")}>
-                        <td>1</td>
-                        <td>
-                            <div className="club-row">
-                                <img
-                                    src={footBallLogo}
-                                    alt="real-madrid"
-                                    className="club-logo"
-                                >
-
-                                </img>
-                            Real Madrid
-                            </div>
-                        </td>
-                        <td>38</td>
-                        <td>20</td>
-                        <td>12</td>
-                        <td>0</td>
-                        <td>32</td>
-                        <td>12</td>
-                        <td>+12</td>
-                        <td>43</td>
-                        <td className="last-column">
-                            <div className="last-five-games">
-                                <div className="game-status win">
-
-                                </div>
-                                <div className="game-status win">
-
-                                </div>
-                                <div className="game-status loss">
-
-                                </div>
-                                <div className="game-status loss">
-
-                                </div>
-                                <div className="game-status draw">
-
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr className="row-layout" onClick={() => onRowClick("Liverpool")}>
-
-                        <td>1</td>
-                        <td>
-                            <div className="club-row">
-                                <img
-                                    src={footBallLogo}
-                                    alt="real-madrid"
-                                    className="club-logo"
-                                >
-
-                                </img>
-                            Real Madrid
-                            </div>
-                        </td>
-                        <td>38</td>
-                        <td>20</td>
-                        <td>12</td>
-                        <td>0</td>
-                        <td>32</td>
-                        <td>12</td>
-                        <td>+12</td>
-                        <td>43</td>
-                        <td className="last-column">
-
-                            <div className="last-five-games">
-                                <div className="game-status win">
-
-                                </div>
-                                <div className="game-status win">
-
-                                </div>
-                                <div className="game-status loss">
-
-                                </div>
-                                <div className="game-status loss">
-
-                                </div>
-                                <div className="game-status draw">
-
-                                </div>
-                            </div>
-                        </td>
-                    </tr> */}
                 </tbody>
                 {/* Table Row END*/}
             </table>
+
+
             {/* Table END */}
         </div>
     )
