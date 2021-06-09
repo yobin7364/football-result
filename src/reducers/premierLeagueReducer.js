@@ -5,7 +5,7 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  premierLeague: null,
+  premierLeagueMatch: null,
   loading: false,
   isModalOpen: false,
 };
@@ -21,7 +21,7 @@ export default function premierLeague(state = initialState, action) {
     case GET_ALL_PREMIER_LEAGUE:
       return {
         ...state,
-        premierLeague: action.payload,
+        premierLeagueMatch: action.payload,
         loading: false,
       };
 

@@ -11,10 +11,17 @@ export const getAllPremierLeague = () => (dispatch) => {
       "https://raw.githubusercontent.com/openfootball/football.json/master/2020-21/en.1.json"
     )
     .then((res) => {
-      dispatch({
-        type: GET_ALL_PREMIER_LEAGUE,
-        payload: res,
-      });
+      if (res.status === 200) {
+        dispatch({
+          type: GET_ALL_PREMIER_LEAGUE,
+          payload: res.data,
+        });
+      } else {
+        dispatch({
+          type: GET_ALL_PREMIER_LEAGUE,
+          payload: {},
+        });
+      }
     })
     .catch((err) => {
       //when no premier league data is not found send empty object
