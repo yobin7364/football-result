@@ -216,7 +216,7 @@ export const ResultTable = () => {
         }
 
 
-        console.log("eachTeam", eachTeam)
+        // console.log("eachTeam", eachTeam)
 
     }, [dispatch, eachTeam])
 
@@ -224,7 +224,7 @@ export const ResultTable = () => {
 
     }, [tableRowData])
 
-    console.log("rowDataArry", tableRowData);
+    // console.log("rowDataArry", tableRowData);
 
     return (
         <div className="center-horizontally">
